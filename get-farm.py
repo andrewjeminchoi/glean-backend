@@ -158,6 +158,4 @@ curl -d '{"minLat":31.655438, "minLon": -91.413312}' -H 'Content-Type: applicati
 
 curl -d '{"minLat":41.655438, "maxLat": 41.8180398, "minLon":-91.413312, "maxLon": -91.613312}' -H 'Content-Type: application/json' 'https://us-central1-cuhacks21.cloudfunctions.net/farm-loc'
 
-
-
 '''
