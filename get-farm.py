@@ -68,6 +68,11 @@ def mock_farms():
 
     return r
 
+def query_loc(db, data):
+    farm_ref = db.collection(u'farm-store')
+    query_ref = farm_ref.where(u'latitude', u'>=', data["minLat"])
+    return query_ref
+
 def insert_farms(db): 
     # # Insertion
     doc_ref = db.collection(u'farm-store').document("calico")
@@ -126,12 +131,18 @@ def get_farms(request):
 
     # Query db for farms within range of distance
     try:
-        
-
-        # farm_ref = db.collection(u'farm-store')
-        # query_ref = cities_ref.where(u'state', u'==', u'CA')
-
-        return {"resp" : "success"}
+        result_list = []
+        docs = query_loc(db, data).stream()
+        for doc in docs:
+            print(f'{doc.id} => {doc.to_dict()}')
+            farm_info = doc.to_dict()
+            farm_info["coordinate"] = {
+                "latitude" : farm_info["latitude"],
+                "longitude" : farm_info["longitude"]
+            }
+            result_list.append(farm_info)
+            
+        return {result_list}
 
     except Exception as e:
         print(e)
@@ -142,5 +153,11 @@ def get_farms(request):
 '''
 
 curl https://us-central1-cuhacks21.cloudfunctions.net/farm-loc
+
+curl -d '{"minLat":31.655438, "minLon": -91.413312}' -H 'Content-Type: application/json' 'https://us-central1-cuhacks21.cloudfunctions.net/farm-loc'
+
+curl -d '{"minLat":41.655438, "maxLat": 41.8180398, "minLon":-91.413312, "maxLon": -91.613312}' -H 'Content-Type: application/json' 'https://us-central1-cuhacks21.cloudfunctions.net/farm-loc'
+
+
 
 '''
