@@ -2,4 +2,4 @@
 cuhacks21
 
 Backend infrastructure
-![](cuhacks21.png)
+![](cuhacks21_.png)
