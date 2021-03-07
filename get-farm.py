@@ -75,27 +75,17 @@ def query_loc(db, data):
 
 def insert_farms(db): 
     # # Insertion
-    doc_ref = db.collection(u'farm-store').document("calico")
+    doc_ref = db.collection(u'farm-store').document("wilsons")
     doc_ref.set({
-    "latitude": 41.675438,
-    "longitude": -91.513312,
-    "title": 'Calico Farm',
-    "query": 'calico+farm',
-    "placeId": 'ChIJSyR-c_lp5IcRPw1xizXHlu0',
-    "address1": '1380 N Dodge St Ct, Iowa City, IA',
-    "address2": '52245, United States'
-    })
+        "latitude": 41.7180398,
+        "longitude": -91.4630386,
+        "title": 'Wilson Orchard & Farm',
+        "query": 'wilsons+orchard+farm',
+        "placeId": 'ChIJy94QyN1o5IcRrw1e7gEl5Ns',
+        "address1": '4823 Dingleberry Rd NE #1, Iowa City, IA',
+        "address2": '52240, United States'
+        })
 
-    doc_ref = db.collection(u'farm-store').document("lucky")
-    doc_ref.set({
-    "latitude": 41.631087,
-    "longitude":-91.571399,
-    "title": 'Lucky Star Farms',
-    "query": 'lucky+star+farms',
-    "placeId": 'ChIJ---GfHdH5IcRbsdgM8j32so',
-    "address1": '2625 Hwy 1 SW, Iowa City, IA',
-    "address2": '52240, United States'
-    })
 
 import firebase_admin
 from firebase_admin import credentials

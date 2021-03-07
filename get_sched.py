@@ -1,22 +1,27 @@
+from twilio.rest import Client
+
+# Twilio apis
+account_sid = ''
+auth_token = ''
 
 def mock_user_req():
     s1 = {
         "user" : "achoo",
         "date" : 13,
         "start_time" : 9,
-        "end_time" : 17,
+        "end_time" : 17
     }
 
     return s1
 
 def farms():
     f1 = {
-    "latitude": 41.675438,
-    "longitude": -91.513312,
-    "title": 'Calico Farm',
-    "query": 'calico+farm',
-    "placeId": 'ChIJSyR-c_lp5IcRPw1xizXHlu0',
-    "preferred_times" : [12, 11]
+        "latitude": 41.675438,
+        "longitude": -91.513312,
+        "title": 'Calico Farm',
+        "query": 'calico+farm',
+        "placeId": 'ChIJSyR-c_lp5IcRPw1xizXHlu0',
+        "preferred_times" : [12, 11]
     }
 
     f2 = {
@@ -31,7 +36,7 @@ def farms():
     }
     return [f1, f2]
 
-def schedule():
+def schedule(request):
     if request.method == 'OPTIONS':
         headers = {
             'Access-Control-Allow-Origin': '*',
@@ -48,8 +53,12 @@ def schedule():
     }
     data = request.get_json()
     print("REQUEST :" , data)
+    client = Client(account_sid, auth_token)
 
-    result = {}
+    result = {
+        "title" : '',
+        "time" : ''
+    }
 
     # print(data)
     user_prefs = {}
@@ -73,7 +82,17 @@ def schedule():
 
     
     # print(farm_prefs, user_prefs)
+    client.api.account.messages.create(
+    to="+12135361436",
+    from_="+12137696156",
+    body="From Glean: Your appointment at {} is at {} :~)".format(result["title"], result["time"]))
     return result
 
 # p = schedule(mock_user_req())
 # print(p)
+
+'''
+
+curl -d '{"user" : "achoo","date" : 13, "start_time" : 14,"end_time" : 17}' -H 'Content-Type: application/json' 'https://us-central1-cuhacks21.cloudfunctions.net/scheduler'
+
+'''
