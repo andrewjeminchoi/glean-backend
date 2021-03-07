@@ -83,9 +83,9 @@ def schedule(request):
     
     # print(farm_prefs, user_prefs)
     client.api.account.messages.create(
-    to="+12135361436",
-    from_="+12137696156",
-    body="From Glean: Your appointment at {} is at {} :~)".format(result["title"], result["time"]))
+    to="+YOURPHONE",
+    from_="+MYPHONE",
+    body="From Glean: Your appointment at {} is at {}:00 PST :~)".format(result["title"], result["time"]))
     return result
 
 # p = schedule(mock_user_req())
